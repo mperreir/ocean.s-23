@@ -68,7 +68,7 @@ public class ArduinoInput : MonoBehaviour
         try {
             ArduinoInputState input = JsonUtility.FromJson<ArduinoInputState>(value);
             Input.UpdateValues(input);
-            Input.DebugLaunchHunter();
+            Debug.Log(ArduinoInput.GetBubbleStreamValue());
         }
         catch (Exception e) {
             Debug.Log(e);
@@ -98,5 +98,9 @@ public class ArduinoInput : MonoBehaviour
 
     public static bool GetKey(ArduinoInputKey key) {
         return Instance._GetKey(key);
+    }
+
+    public static int GetBubbleStreamValue() {
+        return Instance.Input.BubbleStream;
     }
 }
