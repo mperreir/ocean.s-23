@@ -99,6 +99,7 @@ namespace PathCreation {
                                     break;
                                 }
                             }
+                            
                             Gizmos.DrawLine (path.GetPoint (i), path.GetPoint (nextI));
                         }
                     }
