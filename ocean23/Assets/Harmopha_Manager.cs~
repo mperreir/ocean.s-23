@@ -4,13 +4,12 @@ using UnityEngine;
 using PathCreation;
 using PathCreation.Examples;
 
-public class changement_script : MonoBehaviour
+public class Harmopha_Manager : MonoBehaviour
 {
     public PathFollower harmopha, manager;
     public PathCreator path_circle, path_fishing;
     public bool isFishing = false;
-    private int updateCount = 0;
-
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +25,6 @@ public class changement_script : MonoBehaviour
             isFishing = true;
             harmopha.enabled = true;
             manager.enabled = false;
-            Debug.Log("bonjour");
         }
 
         Vector3 harmopha_pos = GameObject.Find("Harmopha").transform.position;
@@ -38,10 +36,8 @@ public class changement_script : MonoBehaviour
             isFishing = false;
             harmopha.enabled = false;
             manager.enabled = true;
-            updateCount = 0;
             GameObject.Find("Harmopha").transform.position = end_path_pos;
-            Debug.Log("au revoir");
-
+            harmopha.distanceTravelled = 0.0f;
         }
     }
 }
