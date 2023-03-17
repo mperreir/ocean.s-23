@@ -90,34 +90,7 @@ public class Harmopha_Manager : MonoBehaviour
     {
         var emission = bubbles_object.emission;
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            value_emission = 1;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            value_emission = 2;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            value_emission = 3;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            value_emission = 4;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            value_emission = 5;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            value_emission = 6;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            value_emission = 0;
-        }
+        value_emission = InputController.GetBubbleStreamValue();
 
         if (value_emission > 0)
         {

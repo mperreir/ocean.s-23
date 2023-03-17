@@ -94,7 +94,7 @@ int nb_conn = 0;
 void loop() {
   // 0 mean down/pressed
   updateValue("StartEndButton", digitalRead(START_END_BTN_PIN) == 1);
-  updateValue("BubbleStream", sliderFormat(analogRead(BUBBLE_B10K), 10));
+  updateValue("BubbleStream", sliderFormat(analogRead(BUBBLE_B10K), 6));
   updateValue("JoystickX", joystickFormat(analogRead(JOYSTICK_X_PIN)));
   updateValue("JoystickY", joystickFormat(analogRead(JOYSTICK_Y_PIN)));
   updateValue("LaunchHunter", lauchHunter());

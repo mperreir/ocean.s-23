@@ -49,7 +49,7 @@ class ArduinoControllerState : IInputControllerState
 
     public int GetBubbleValue()
     {
-        return 0;
+        return ArduinoInput.GetBubbleStreamValue();
     }
 
     public void Update()
@@ -60,6 +60,8 @@ class ArduinoControllerState : IInputControllerState
 
 class KeyboardControllerState : IInputControllerState
 {
+    int BubbleValue = 0;
+
     public bool GetKeyDown(InputKey key)
     {
         switch (key)
@@ -84,11 +86,39 @@ class KeyboardControllerState : IInputControllerState
 
     public int GetBubbleValue()
     {
-        return 0;
+        return BubbleValue;
     }
 
     public void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            BubbleValue = 1;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            BubbleValue = 2;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            BubbleValue = 3;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            BubbleValue = 4;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            BubbleValue = 5;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            BubbleValue = 6;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            BubbleValue = 0;
+        }
     }
 }
 

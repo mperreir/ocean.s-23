@@ -30,7 +30,7 @@ public class FishingManager : MonoBehaviour
     {
         Harmopha_Manager[] hs = { h1, h2, h3, h4, h5 };
 
-        if (Input.GetKeyUp(KeyCode.Space) && nb_fishing < max_harphomas)
+        if (InputController.GetKeyDown(InputKey.LaunchHunter) && nb_fishing < max_harphomas)
         {
             switch (next_harmopha_fishing)
             {
@@ -67,7 +67,6 @@ public class FishingManager : MonoBehaviour
             particles_count += (int)emission.rateOverTime.constant;
         }
 
-        Debug.Log(particles_count >= air_remaining);
         if (air_remaining <= particles_count)
         {
             foreach (Harmopha_Manager h in hs)
@@ -80,7 +79,6 @@ public class FishingManager : MonoBehaviour
 
     static public bool HarmophaCanGoFishing(int id_harmopha)
     {
-        Debug.Log("METHOD count : " + count + "\n\tnext_fishing" + next_harmopha_fishing + "\tID : " + id_harmopha);
         return (id_harmopha == next_harmopha_fishing);
     }
 }

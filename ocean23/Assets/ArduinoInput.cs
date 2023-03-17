@@ -81,15 +81,28 @@ public class ArduinoInput
                 Debug.Log($"Found : {portName}");
 
                 if (stream.BytesToRead <= 0) continue;
-                String value = stream.ReadLine();
 
-                ArduinoInputState input = JsonUtility.FromJson<ArduinoInputState>(value);
-                Input.UpdateValues(input);
-                Debug.Log($"{portName} is arduino.");
-                ArduinoFound = true;
-                break;
+                for (int i = 0; i < 5; i++)
+                {
+                    try
+                    {
+                        String value = stream.ReadLine();
+                        Debug.Log(value);
+                        ArduinoInputState input = JsonUtility.FromJson<ArduinoInputState>(value);
+                        Input.UpdateValues(input);
+                        Debug.Log($"{portName} is arduino.");
+                        ArduinoFound = true;
+                        break;
+                    }
+                    catch (Exception)
+                    {
+                        continue;
+                    }
+                }
+
+                if (ArduinoFound) break;
             }
-            catch (Exception e)
+            catch (Exception)
             {
 
             }
