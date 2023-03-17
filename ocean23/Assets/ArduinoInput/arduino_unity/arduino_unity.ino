@@ -1,5 +1,4 @@
 #include <Seeed_CY8C401XX.h>
-
 #include <ArduinoJson.h>
 #include <ArduinoJson.hpp>
 
@@ -11,7 +10,6 @@ CY8C hunter_launcher_sensor;
 const int JOYSTICK_X_PIN = A1;
 const int JOYSTICK_Y_PIN = A2;
 
-
 const int START_END_BTN_PIN = 2;
 
 DynamicJsonDocument json(1024);
@@ -22,9 +20,11 @@ void setup() {
   pinMode(BUBBLE_B10K, INPUT);
   pinMode(JOYSTICK_X_PIN, INPUT);
   pinMode(JOYSTICK_Y_PIN, INPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
+
   hunter_launcher_sensor.init();
 
-  Serial.begin(9600);
+  Serial.begin(115200);
 }
 
 
@@ -33,8 +33,8 @@ int sliderFormat(const int value, const int steps) {
 }
 
 int joystickFormat(const int value) {
-  if (value < 500) return -1;
-  if (value > 600) return 1;
+  if (value < 400) return -1;
+  if (value > 700) return 1;
   return 0;
 }
 
@@ -87,6 +87,10 @@ bool lauchHunter(){
   return true;
 }
 
+bool connected = false;
+
+int nb_conn = 0;
+
 void loop() {
   // 0 mean down/pressed
   updateValue("StartEndButton", digitalRead(START_END_BTN_PIN) == 1);
@@ -95,14 +99,9 @@ void loop() {
   updateValue("JoystickY", joystickFormat(analogRead(JOYSTICK_Y_PIN)));
   updateValue("LaunchHunter", lauchHunter());
 
-  // updateValue("LAUNCH_HUNTER_2", sliderFormat(analogRead(LAUNCH_HUNTER_2), SLIDER_MAX_VALUE));
-  // updateValue("streamFlow", sliderFormat(analogRead(STREAM_FLOW_SLIDER_PIN), 4));
 
-  if (valueUpdated) {
-    valueUpdated = false;
+  serializeJson(json, Serial);
+  Serial.println();
 
-    serializeJson(json, Serial);
-    Serial.println();
-    Serial.flush();
-  }
+  delay(16);
 }

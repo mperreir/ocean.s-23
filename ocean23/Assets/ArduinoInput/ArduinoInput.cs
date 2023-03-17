@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using System;
+using System.Threading;
 using System.IO.Ports;
 
 [System.Serializable]
-class ArduinoInputState {
+class ArduinoInputState
+{
     public int StartEndButton = 0;
     public int BubbleStream = 0;
 
@@ -17,7 +19,8 @@ class ArduinoInputState {
     public int LaunchHunter = 0;
 
 
-    public void UpdateValues(ArduinoInputState input) {
+    public void UpdateValues(ArduinoInputState input)
+    {
         this.StartEndButton = input.StartEndButton;
         this.BubbleStream = input.BubbleStream;
         this.JoystickX = input.JoystickX;
@@ -25,14 +28,16 @@ class ArduinoInputState {
         this.LaunchHunter += input.LaunchHunter;
     }
 
-    public void DebugLaunchHunter() {
+    public void DebugLaunchHunter()
+    {
         Debug.Log(LaunchHunter);
     }
 }
 
-public enum ArduinoInputKey {
+public enum ArduinoInputKey
+{
     StartEndButton,
-    BubbleStream, 
+    BubbleStream,
     JoystickXRight,
     JoystickXLeft,
     JoystickYUp,
@@ -47,60 +52,122 @@ public class ArduinoInput : MonoBehaviour
     ArduinoInputState Input = new ArduinoInputState();
 
     // The port need to be changed
-    SerialPort stream = new SerialPort("/dev/cu.usbmodem143101", 9600);
+    SerialPort stream = new SerialPort();
+
+    const int SERIAL_BAUD_RATE = 115200;
+
+    void InitArduino()
+    {
+        // foreach (var portName in SerialPort.GetPortNames()) {
+        //     try {
+        //         stream = new SerialPort(portName, SERIAL_BAUD_RATE);
+        //         stream.Open();
+        //         Debug.Log($"Found : {portName}");
+        //         stream.WriteLine("ARDUINO_CONN");
+        //         Thread.Sleep(3000);
+        //         Debug.Log("ARDUINO_CONN");
+
+        //         if (stream.BytesToRead <= 0) {
+        //             stream.Close();
+        //             Debug.Log($"Not responding");
+        //             continue;
+        //         };
+
+        //         String value = stream.ReadLine();
+        //         Debug.Log($"Received : {value}");
+        //         if (value == "ARDUINO_CONN_OPEN"){
+        //             stream.WriteLine("ARDUINO_CONN_OPEN_ACK");
+        //             Debug.Log("ARDUINO_CONN_OPEN_ACK");
+        //         }
+        //         Debug.Log(portName);
+        //         break;
+        //     } catch (Exception _) {
+
+        //     }
+        // }
+        foreach (var portName in SerialPort.GetPortNames())
+        {
+            try
+            {
+                stream = new SerialPort(portName, SERIAL_BAUD_RATE);
+                stream.ReadTimeout = 500;
+                stream.Open();
+                Debug.Log($"Found : {portName}");
+
+                if (stream.BytesToRead <= 0) continue;
+                String value = stream.ReadLine();
+
+                ArduinoInputState input = JsonUtility.FromJson<ArduinoInputState>(value);
+                Input.UpdateValues(input);
+                break;
+            }
+            catch (Exception e)
+            {
+
+            }
+        }
+
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         Instance = this;
-        stream.Open();
         Debug.Log("Start");
-        // Application.runInBackground = true;
+        InitArduino();
     }
 
     // Update is called once per frame
     void Update()
     {
         if (!stream.IsOpen) return;
-        if (stream.BytesToRead <=0 ) return;
+        if (stream.BytesToRead <= 0) return;
         String value = stream.ReadLine();
         Debug.Log(value);
-        try {
+        try
+        {
             ArduinoInputState input = JsonUtility.FromJson<ArduinoInputState>(value);
             Input.UpdateValues(input);
             Debug.Log(ArduinoInput.GetBubbleStreamValue());
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             Debug.Log(e);
         }
     }
 
-    void Test() {
+    void Test()
+    {
         // Debug.Log("test fine");
     }
 
-    bool _GetKey(ArduinoInputKey key) {
-        switch (key) {
+    bool _GetKey(ArduinoInputKey key)
+    {
+        switch (key)
+        {
             case ArduinoInputKey.StartEndButton: return Input.StartEndButton != 0;
             case ArduinoInputKey.BubbleStream: return Input.BubbleStream != 0;
             case ArduinoInputKey.JoystickXRight: return Input.JoystickX < 0;
             case ArduinoInputKey.JoystickXLeft: return Input.JoystickX > 0;
             case ArduinoInputKey.JoystickYUp: return Input.JoystickY > 0;
             case ArduinoInputKey.JoystickYDown: return Input.JoystickY < 0;
-            case ArduinoInputKey.LaunchHunter: {
-                if (Input.LaunchHunter <= 0) return false;
-                Input.LaunchHunter--;
-                return true;
-            };
+            case ArduinoInputKey.LaunchHunter:
+                {
+                    if (Input.LaunchHunter <= 0) return false;
+                    Input.LaunchHunter--;
+                    return true;
+                };
             default: return false;
         }
     }
 
-    public static bool GetKey(ArduinoInputKey key) {
+    public static bool GetKey(ArduinoInputKey key)
+    {
         return Instance._GetKey(key);
     }
 
-    public static int GetBubbleStreamValue() {
+    public static int GetBubbleStreamValue()
+    {
         return Instance.Input.BubbleStream;
     }
 }
