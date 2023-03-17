@@ -18,13 +18,31 @@ public class Harmopha_Manager : MonoBehaviour
 
     public int id_harmopha;
 
+    private int value_emission = 0;
+
     // Start is called before the first frame update
     void Start()
     {
+        // main = main parameters for the bubble object
         var main = bubbles_object.main;
         main.stopAction = ParticleSystemStopAction.None;
+        main.maxParticles = 1000000;
+        main.loop = true;
+        main.startSpeed = 13;
+        main.startLifetime = 10;
+
+        // shape = shape parameters for the bubble object
+        var shape = bubbles_object.shape;
+        shape.shapeType = ParticleSystemShapeType.Cone;
+        shape.angle = 5;
+
+        var emission = bubbles_object.emission;
+        emission.rateOverTime = 0;
+
         bubbles_object.Pause();
+
         harmopha.speed = 105;
+
         manager.speed = 80;
         manager.distanceTravelled = starting_point;
     }
@@ -40,14 +58,17 @@ public class Harmopha_Manager : MonoBehaviour
 
     public void GoFishing()
     {
+        var emission = bubbles_object.emission;
+        emission.rateOverTime = 0;
+
         harmopha.pathCreator = path_fishing;
         isFishing = true;
         harmopha.enabled = true;
         manager.enabled = false;
         bubbles_object.Stop();
-        FishingTurn.nb_fishing++;
+        FishingManager.nb_fishing++;
     }
-    
+
     void ReturnToCirclePath()
     {
         Vector3 harmopha_pos = GameObject.Find("Harmopha" + id_harmopha).transform.position;
@@ -60,19 +81,50 @@ public class Harmopha_Manager : MonoBehaviour
             isFishing = false;
             harmopha.enabled = false;
             manager.enabled = true;
-            FishingTurn.nb_fishing--;
+            FishingManager.nb_fishing--;
             GameObject.Find("Harmopha" + id_harmopha).transform.position = end_path_pos;
         }
     }
 
     void BubbleGeneration()
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        var emission = bubbles_object.emission;
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            bubbles_object.Play();
+            value_emission = 1;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            value_emission = 2;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            value_emission = 3;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            value_emission = 4;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            value_emission = 5;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            value_emission = 6;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            value_emission = 0;
         }
 
-        if (Input.GetKeyUp(KeyCode.B) && bubbles_object.isPlaying)
+        if (value_emission > 0)
+        {
+            emission.rateOverTime = value_emission * 20;
+            bubbles_object.Play();
+        }
+        else if (value_emission == 0 && bubbles_object.isPlaying)
         {
             bubbles_object.Stop();
         }

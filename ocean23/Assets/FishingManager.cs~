@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FishingTurn : MonoBehaviour
+public class FishingManager : MonoBehaviour
 {
     static private int next_harmopha_fishing = 1;
     static private int max_harphomas = 5;
