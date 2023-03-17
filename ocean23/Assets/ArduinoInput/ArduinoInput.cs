@@ -58,33 +58,6 @@ public class ArduinoInput : MonoBehaviour
 
     void InitArduino()
     {
-        // foreach (var portName in SerialPort.GetPortNames()) {
-        //     try {
-        //         stream = new SerialPort(portName, SERIAL_BAUD_RATE);
-        //         stream.Open();
-        //         Debug.Log($"Found : {portName}");
-        //         stream.WriteLine("ARDUINO_CONN");
-        //         Thread.Sleep(3000);
-        //         Debug.Log("ARDUINO_CONN");
-
-        //         if (stream.BytesToRead <= 0) {
-        //             stream.Close();
-        //             Debug.Log($"Not responding");
-        //             continue;
-        //         };
-
-        //         String value = stream.ReadLine();
-        //         Debug.Log($"Received : {value}");
-        //         if (value == "ARDUINO_CONN_OPEN"){
-        //             stream.WriteLine("ARDUINO_CONN_OPEN_ACK");
-        //             Debug.Log("ARDUINO_CONN_OPEN_ACK");
-        //         }
-        //         Debug.Log(portName);
-        //         break;
-        //     } catch (Exception _) {
-
-        //     }
-        // }
         foreach (var portName in SerialPort.GetPortNames())
         {
             try
@@ -123,12 +96,10 @@ public class ArduinoInput : MonoBehaviour
         if (!stream.IsOpen) return;
         if (stream.BytesToRead <= 0) return;
         String value = stream.ReadLine();
-        Debug.Log(value);
         try
         {
             ArduinoInputState input = JsonUtility.FromJson<ArduinoInputState>(value);
             Input.UpdateValues(input);
-            Debug.Log(ArduinoInput.GetBubbleStreamValue());
         }
         catch (Exception e)
         {
