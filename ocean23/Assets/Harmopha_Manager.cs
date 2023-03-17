@@ -17,51 +17,37 @@ public class Harmopha_Manager : MonoBehaviour
     public float starting_point = 0.0f;
 
     public int id_harmopha;
-    private int next_harmopha_fishing = 1;
-    private int max_harphomas = 5;
-    static private int nb_fishing = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+        var main = bubbles_object.main;
+        main.stopAction = ParticleSystemStopAction.None;
         bubbles_object.Pause();
+        harmopha.speed = 105;
+        manager.speed = 80;
         manager.distanceTravelled = starting_point;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space) && nb_fishing < max_harphomas)
-        {
-            if (next_harmopha_fishing == max_harphomas)
-                next_harmopha_fishing = 1;
-            else
-                next_harmopha_fishing++;
-        }
-
-
-        if (Input.GetKey(KeyCode.Space) && !isFishing && IsNextFishing()) GoFishing();
-
         if (isFishing)
             ReturnToCirclePath();
         else
             BubbleGeneration();
     }
 
-    bool IsNextFishing()
+    public void GoFishing()
     {
-        return (id_harmopha == next_harmopha_fishing);
-    }
-
-    void GoFishing()
-    {
-        nb_fishing++;
         harmopha.pathCreator = path_fishing;
         isFishing = true;
         harmopha.enabled = true;
         manager.enabled = false;
+        bubbles_object.Stop();
+        FishingTurn.nb_fishing++;
     }
-
+    
     void ReturnToCirclePath()
     {
         Vector3 harmopha_pos = GameObject.Find("Harmopha" + id_harmopha).transform.position;
@@ -74,9 +60,8 @@ public class Harmopha_Manager : MonoBehaviour
             isFishing = false;
             harmopha.enabled = false;
             manager.enabled = true;
+            FishingTurn.nb_fishing--;
             GameObject.Find("Harmopha" + id_harmopha).transform.position = end_path_pos;
-            nb_fishing--;
-
         }
     }
 
@@ -91,5 +76,6 @@ public class Harmopha_Manager : MonoBehaviour
         {
             bubbles_object.Stop();
         }
+
     }
 }

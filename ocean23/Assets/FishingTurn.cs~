@@ -1,0 +1,22 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class FishingTurn : MonoBehaviour
+{
+    public int next_harmopha_fishing = 1;
+    public int max_harphomas = 5;
+    static private int nb_fishing = 0;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
