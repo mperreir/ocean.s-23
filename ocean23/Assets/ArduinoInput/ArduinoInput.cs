@@ -18,7 +18,6 @@ class ArduinoInputState
     // Consider as queue 
     public int LaunchHunter = 0;
 
-
     public void UpdateValues(ArduinoInputState input)
     {
         this.StartEndButton = input.StartEndButton;
@@ -72,6 +71,7 @@ public class ArduinoInput : MonoBehaviour
 
                 ArduinoInputState input = JsonUtility.FromJson<ArduinoInputState>(value);
                 Input.UpdateValues(input);
+                Debug.Log($"{portName} is arduino.");
                 break;
             }
             catch (Exception e)
@@ -85,6 +85,7 @@ public class ArduinoInput : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (Instance != null) return;
         Instance = this;
         Debug.Log("Start");
         InitArduino();
@@ -93,6 +94,12 @@ public class ArduinoInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (this != Instance)
+        {
+            Instance.Update();
+            return;
+        }
+
         if (!stream.IsOpen) return;
         if (stream.BytesToRead <= 0) return;
         String value = stream.ReadLine();
