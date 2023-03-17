@@ -24,7 +24,8 @@ class FiletHoverState : ISelectorState
         return StateID;
     }
 
-    public void KeyDownPressed() {
+    public void KeyDownPressed()
+    {
         SelectorController.SetState(new BulleurHoverState());
     }
 
@@ -41,10 +42,12 @@ class BulleurHoverState : ISelectorState
     {
         return StateID;
     }
-    public void KeyUpPressed() {
+    public void KeyUpPressed()
+    {
         SelectorController.SetState(new FiletHoverState());
     }
-    public void KeyDownPressed() {
+    public void KeyDownPressed()
+    {
         SelectorController.SetState(new ReservoirHoverState());
     }
 
@@ -165,27 +168,27 @@ public class SelectorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.UpArrow))
+        if (InputController.GetKeyDown(InputKey.Up))
         {
             State.KeyUpPressed();
         }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (InputController.GetKeyDown(InputKey.Down))
         {
             State.KeyDownPressed();
         }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (InputController.GetKeyDown(InputKey.Right))
         {
             State.KeyRightPressed();
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (InputController.GetKeyDown(InputKey.Left))
         {
             State.KeyLeftPressed();
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (InputController.GetKeyDown(InputKey.Enter))
         {
             State.KeyEnterPressed();
         }
@@ -215,11 +218,12 @@ public class SelectorController : MonoBehaviour
         }
 
         if (Instance.SelectedAccessories.Count >= 2) return;
-        
+
         Instance.SelectedAccessories.Add(id);
     }
 
-    public static bool ContainsAccessory(int id) {
+    public static bool ContainsAccessory(int id)
+    {
         if (Instance == null) return false;
 
         return Instance.SelectedAccessories.Contains(id);
