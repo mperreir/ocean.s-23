@@ -37,10 +37,11 @@ public class Flock : MonoBehaviour
         }
         if(Vector3.Distance(transform.position,new Vector3(0,20,transform.position.z))<=30){
             if(Random.Range(0,3)<1){
+                //rotation of the fish on itself i think ?
                 transform.RotateAround(new Vector3(0,10,transform.position.z),Vector3.forward,100.0f*Time.deltaTime);
             }
             else{
-                transform.RotateAround(new Vector3(0,2,transform.position.z),Vector3.forward,100.0f*Time.deltaTime);
+                transform.RotateAround(new Vector3(0, transform.position.y, 2),Vector3.forward,100.0f*Time.deltaTime);
             }
         }
         else{
