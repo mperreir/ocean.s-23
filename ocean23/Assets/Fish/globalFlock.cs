@@ -17,7 +17,7 @@ public class globalFlock : MonoBehaviour
     void Start()
     {
         for(int i = 0; i<numFish; i++){
-            Vector3 pos = new Vector3(Random.Range(-200,-100),0,Random.Range(tankSize/2-15,tankSize/2-5));
+            Vector3 pos = new Vector3(Random.Range(-200,-100), Random.Range(tankSize / 2 - 15, tankSize / 2 - 5), 320);
             allfish[i] = (GameObject) Instantiate(fishPrefab, pos, Quaternion.identity);
         }
 

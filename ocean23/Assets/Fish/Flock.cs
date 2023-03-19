@@ -31,20 +31,24 @@ public class Flock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.x>200 || transform.position.x<-200){
+        if(transform.position.x>200 || transform.position.x<-200)
+        {
             // Vector3 direction = Vector3.zero - new Vector3(transform.position.x,0,transform.position.z);
-            transform.Rotate(0.0f, 0.0f, rotationSpeed * 180.0f);
+            //transform.Rotate(0.0f, 0.0f, rotationSpeed * 180.0f);
         }
-        if(Vector3.Distance(transform.position,new Vector3(0,20,transform.position.z))<=30){
-            if(Random.Range(0,3)<1){
-                //rotation of the fish on itself i think ?
-                transform.RotateAround(new Vector3(0,10,transform.position.z),Vector3.forward,100.0f*Time.deltaTime);
+        if(Vector3.Distance(transform.position, new Vector3(0, transform.position.y, 320)) <= 50)
+        {
+            int z = 2;
+
+            if (Random.Range(0, 3) < 1)
+            {
+                z = 10;
             }
-            else{
-                transform.RotateAround(new Vector3(0, transform.position.y, 2),Vector3.forward,100.0f*Time.deltaTime);
-            }
+
+            transform.RotateAround(new Vector3(0, transform.position.y, 320), Vector3.up, 100.0f * Time.deltaTime);
         }
-        else{
+        else
+        {
             transform.Translate(speed * Time.deltaTime,0,0);
         }
         
