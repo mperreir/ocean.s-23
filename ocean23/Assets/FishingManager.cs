@@ -7,7 +7,6 @@ public class FishingManager : MonoBehaviour
     static private int next_harmopha_fishing = 1;
     static private int max_harphomas = 5;
     static public int nb_fishing = 0;
-    static private int count = 0;
     static private int air_remaining;
     public Harmopha_Manager h1;
     public Harmopha_Manager h2;
@@ -21,7 +20,7 @@ public class FishingManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        air_remaining = 100000;
+        air_remaining = 650000;
         particles_count = 0;
     }
 
@@ -69,16 +68,12 @@ public class FishingManager : MonoBehaviour
 
         if (air_remaining <= particles_count)
         {
+            Debug.Log("NO MORE AIR");
             foreach (Harmopha_Manager h in hs)
             {
-                var main = h.bubbles_object.main;
-                main.stopAction = ParticleSystemStopAction.Destroy;
+                h.bubbles_object.Stop();
+                h.hasAir = false;
             }
         }
-    }
-
-    static public bool HarmophaCanGoFishing(int id_harmopha)
-    {
-        return (id_harmopha == next_harmopha_fishing);
     }
 }

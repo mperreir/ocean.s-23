@@ -12,6 +12,7 @@ public class Harmopha_Manager : MonoBehaviour
     // path_fishing is the path for Harmophas to swim to the surface and go back down
     public PathCreator path_circle, path_fishing;
     public bool isFishing = false;
+    public bool hasAir = true;
     // Bubbles particles object
     public ParticleSystem bubbles_object;
     public float starting_point = 0.0f;
@@ -52,7 +53,7 @@ public class Harmopha_Manager : MonoBehaviour
     {
         if (isFishing)
             ReturnToCirclePath();
-        else
+        if (hasAir)
             BubbleGeneration();
     }
 
@@ -89,15 +90,14 @@ public class Harmopha_Manager : MonoBehaviour
     void BubbleGeneration()
     {
         var emission = bubbles_object.emission;
-
         value_emission = InputController.GetBubbleStreamValue();
+        emission.rateOverTime = value_emission * 20;
 
-        if (value_emission > 0)
+        if (value_emission > 0 && !isFishing)
         {
-            emission.rateOverTime = value_emission * 20;
             bubbles_object.Play();
         }
-        else if (value_emission == 0 && bubbles_object.isPlaying)
+        else if (value_emission == 0 && bubbles_object.isPlaying && !isFishing)
         {
             bubbles_object.Stop();
         }
