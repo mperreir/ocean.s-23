@@ -1,9 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 <<<<<<<< HEAD:ocean23/Assets/TextMesh Pro/Documentation/TextMesh Pro User Guide 2016.pdf.meta
 guid: 1b8d251f9af63b746bf2f7ffe00ebb9b
 ========
 guid: df30548249d3f4948ad50c467b689771
 >>>>>>>> origin/arduino_controller:ocean23/Assets/ArduinoInput/arduino_unity/arduino_unity.ino.meta
+=======
+guid: 1b8d251f9af63b746bf2f7ffe00ebb9b
+>>>>>>> origin/anim_fish
 DefaultImporter:
   externalObjects: {}
   userData: 
