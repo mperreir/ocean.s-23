@@ -765,7 +765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1bd4eddcbf7454e8625ab6ab200740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedSprite: {fileID: 21300000, guid: 2573469475b58394da31be77390bb279, type: 3}
+  selectedSprite: {fileID: 21300000, guid: 25566eb7ca7efdc4786c57f3da890fc5, type: 3}
   ButtonID: 4
 --- !u!114 &1368943009
 MonoBehaviour:
@@ -831,7 +831,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2e598a4352bf0284197e8375d236363d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: df2c8ced3413dc947b9d8f4049e0df5f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1162,7 +1162,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -1158, y: 172}
-  m_SizeDelta: {x: 400, y: 87}
+  m_SizeDelta: {x: 500, y: 87}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1470433455
 MonoBehaviour:
@@ -1176,7 +1176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1bd4eddcbf7454e8625ab6ab200740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedSprite: {fileID: 21300000, guid: afeb9572ba12b9a469b6f38949aef1b2, type: 3}
+  selectedSprite: {fileID: 21300000, guid: 87a21b540940ad146aba7b20ea582ffd, type: 3}
   ButtonID: 5
 --- !u!114 &1470433456
 MonoBehaviour:
@@ -1242,7 +1242,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2e598a4352bf0284197e8375d236363d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1ded8cc25f153ad41951bd5b944c92d2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

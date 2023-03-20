@@ -82,7 +82,7 @@ public class Flock : MonoBehaviour
         this.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f,1);
         score += 1;
 
-        if(score == 10){
+        if(score == 50){
             score = 0;
             SceneManager.LoadScene("Scenes/GameOverScene/Victory");
         }
