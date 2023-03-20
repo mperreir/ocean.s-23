@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FishingManager : MonoBehaviour
 {
@@ -15,7 +16,6 @@ public class FishingManager : MonoBehaviour
     public Harmopha_Manager h5;
 
     int particles_count;
-
 
     // Start is called before the first frame update
     void Start()
@@ -74,6 +74,12 @@ public class FishingManager : MonoBehaviour
                 h.bubbles_object.Stop();
                 h.hasAir = false;
             }
+            h1.isBubble = false;
+            Invoke("EndGame",10);
         }
+    }
+
+    public void EndGame(){
+        SceneManager.LoadScene("Scenes/GameOverScene/GameOver");
     }
 }

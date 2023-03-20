@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Flock : MonoBehaviour
 {
-    public TextMeshProUGUI Text;
+    // public TextMeshProUGUI Text;
     
     // score
     public static int score;
@@ -17,25 +18,45 @@ public class Flock : MonoBehaviour
     Vector3 averagePosition;
     // float neighbourDistance = 20.0f;
     Vector3 goalPos = globalFlock.goalPos;
+    public int tankSize = globalFlock.tankSize;
     public float angleSpeed = 0.01f;
     public bool isRotate = true;
 
     public static float w = 0.3f;
 
+    public Harmopha_Manager hm;
+
     // Start is called before the first frame update
     void Start()
     {
         speed = Random.Range(20.0f,50);
+        transform.Translate(speed * Time.deltaTime,0,0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.x>200 || transform.position.x<-200)
-        {
-            // Vector3 direction = Vector3.zero - new Vector3(transform.position.x,0,transform.position.z);
-            //transform.Rotate(0.0f, 0.0f, rotationSpeed * 180.0f);
+        if(hm.isBubble){
+            CircleAround();
         }
+        else{
+            transform.Translate(speed * Time.deltaTime,0,0);
+        }
+
+        if(Vector3.Distance(transform.position,new Vector3(0,0,0))>500){
+            transform.position = new Vector3(Random.Range(-500,-400), Random.Range(tankSize / 2 - 15, tankSize / 2 - 5), Random.Range(280, 360));
+            transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f,1);
+        }
+
+    }
+    
+    // circle
+    public void CircleAround(){
+        // if(transform.position.x>200 || transform.position.x<-200)
+        // {
+        //     // Vector3 direction = Vector3.zero - new Vector3(transform.position.x,0,transform.position.z);
+        //     //transform.Rotate(0.0f, 0.0f, rotationSpeed * 180.0f);
+        // }
         if(Vector3.Distance(transform.position, new Vector3(0, transform.position.y, 320)) <= 50)
         {
             int z = 2;
@@ -45,32 +66,26 @@ public class Flock : MonoBehaviour
                 z = 10;
             }
 
-            transform.RotateAround(new Vector3(0, transform.position.y, 320), Vector3.up, 100.0f * Time.deltaTime);
+            transform.RotateAround(new Vector3(0, transform.position.y, Random.Range(280, 360)), Vector3.up, 100.0f * Time.deltaTime);
         }
         else
         {
             transform.Translate(speed * Time.deltaTime,0,0);
         }
-        
-        // else{
-        //     // rotation angle
-        //     if(Random.Range(0,20000)<20){
-        //         transform.Rotate(0.0f, 1.0f, 0.0f);
-        //     }
-        //     if(Random.Range(0,20000)<20){
-        //         transform.Rotate(0.0f, -1.0f, 0.0f);
-        //     }
     }
 
     // counter
     void OnTriggerEnter(Collider collider) {
         Vector3 pos = this.transform.position;
-        pos.x = -100;
+        pos.x = -500;
         this.transform.position = pos;
         this.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f,1);
         score += 1;
 
-        Text.text = score.ToString() + " POINTS";
+        if(score == 10){
+            score = 0;
+            SceneManager.LoadScene("Scenes/GameOverScene/Victory");
+        }
 
     }
 

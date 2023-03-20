@@ -8,7 +8,7 @@ public class globalFlock : MonoBehaviour
     public GameObject goalPrefab;
     public static int tankSize = 100;
 
-    static int numFish = 80;
+    public static int numFish = 100;
     public static GameObject[] allfish = new GameObject[numFish];
 
     public static Vector3 goalPos;
@@ -17,7 +17,7 @@ public class globalFlock : MonoBehaviour
     void Start()
     {
         for(int i = 0; i<numFish; i++){
-            Vector3 pos = new Vector3(Random.Range(-200,-100), Random.Range(tankSize / 2 - 15, tankSize / 2 - 5), 320);
+            Vector3 pos = new Vector3(Random.Range(-500,-400), Random.Range(tankSize / 2 - 25, tankSize / 2 + 25), Random.Range(280, 360));
             allfish[i] = (GameObject) Instantiate(fishPrefab, pos, Quaternion.identity);
         }
 

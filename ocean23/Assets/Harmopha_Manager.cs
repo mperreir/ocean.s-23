@@ -21,6 +21,8 @@ public class Harmopha_Manager : MonoBehaviour
 
     private int value_emission = 0;
 
+    public bool isBubble = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -96,10 +98,12 @@ public class Harmopha_Manager : MonoBehaviour
         if (value_emission > 0 && !isFishing)
         {
             bubbles_object.Play();
+            isBubble = true;
         }
         else if (value_emission == 0 && bubbles_object.isPlaying && !isFishing)
         {
             bubbles_object.Stop();
+            isBubble = false;
         }
 
     }
