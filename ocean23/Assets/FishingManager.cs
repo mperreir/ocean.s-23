@@ -75,7 +75,9 @@ public class FishingManager : MonoBehaviour
                 h.hasAir = false;
             }
             h1.isBubble = false;
-            Invoke("EndGame",10);
+            air_remaining = 650000;
+            particles_count = 0;
+            Invoke("EndGame",6);
         }
     }
 
