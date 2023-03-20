@@ -8,14 +8,14 @@ public class FishingManager : MonoBehaviour
     static private int next_harmopha_fishing = 1;
     static private int max_harphomas = 5;
     static public int nb_fishing = 0;
-    static private int air_remaining;
+    static public int air_remaining;
     public Harmopha_Manager h1;
     public Harmopha_Manager h2;
     public Harmopha_Manager h3;
     public Harmopha_Manager h4;
     public Harmopha_Manager h5;
 
-    int particles_count;
+    static public int particles_count;
 
     // Start is called before the first frame update
     void Start()
