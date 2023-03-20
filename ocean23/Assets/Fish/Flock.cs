@@ -66,7 +66,7 @@ public class Flock : MonoBehaviour
                 z = 10;
             }
 
-            transform.RotateAround(new Vector3(0, transform.position.y, Random.Range(280, 360)), Vector3.up, 100.0f * Time.deltaTime);
+            transform.RotateAround(new Vector3(0, transform.position.y, 320), Vector3.up, 100.0f * Time.deltaTime);
         }
         else
         {
@@ -82,7 +82,7 @@ public class Flock : MonoBehaviour
         this.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f,1);
         score += 1;
 
-        if(score == 30){
+        if(score == 100){
             score = 0;
             SceneManager.LoadScene("Scenes/GameOverScene/Victory");
         }
