@@ -44,6 +44,8 @@ public class Harmopha_Manager : MonoBehaviour
 
         bubbles_object.Pause();
 
+        GameObject.Find("Harmopha" + id_harmopha).GetComponent<Rigidbody>().isKinematic = true;
+
         harmopha.speed = 105;
 
         manager.speed = 80;

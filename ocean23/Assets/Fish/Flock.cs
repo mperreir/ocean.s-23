@@ -17,7 +17,6 @@ public class Flock : MonoBehaviour
     Vector3 averageHeading;
     Vector3 averagePosition;
     // float neighbourDistance = 20.0f;
-    Vector3 goalPos = globalFlock.goalPos;
     public int tankSize = globalFlock.tankSize;
     public float angleSpeed = 0.01f;
     public bool isRotate = true;
@@ -40,6 +39,12 @@ public class Flock : MonoBehaviour
             CircleAround();
         }
         else{
+            if(Random.Range(0,10)<1){
+                transform.Rotate(0.0f,0.0f,0.5f);
+            }
+            if(Random.Range(0,10)<1){
+                transform.Rotate(0.0f,0.0f,-0.5f);
+            }
             transform.Translate(speed * Time.deltaTime,0,0);
         }
 
@@ -52,11 +57,6 @@ public class Flock : MonoBehaviour
     
     // circle
     public void CircleAround(){
-        // if(transform.position.x>200 || transform.position.x<-200)
-        // {
-        //     // Vector3 direction = Vector3.zero - new Vector3(transform.position.x,0,transform.position.z);
-        //     //transform.Rotate(0.0f, 0.0f, rotationSpeed * 180.0f);
-        // }
         if(Vector3.Distance(transform.position, new Vector3(0, transform.position.y, 320)) <= 50)
         {
             int z = 2;
@@ -82,7 +82,7 @@ public class Flock : MonoBehaviour
         this.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f,1);
         score += 1;
 
-        if(score == 10){
+        if(score == 30){
             score = 0;
             SceneManager.LoadScene("Scenes/GameOverScene/Victory");
         }

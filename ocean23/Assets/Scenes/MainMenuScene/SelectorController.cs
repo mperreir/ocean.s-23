@@ -29,6 +29,16 @@ class FiletHoverState : ISelectorState
         SelectorController.SetState(new BulleurHoverState());
     }
 
+    public void KeyRightPressed()
+    {
+        SelectorController.SetState(new StartHoverState());
+    }
+
+    public void KeyLeftPressed()
+    {
+        SelectorController.SetState(new RetourHoverState());
+    }
+
     public void KeyEnterPressed()
     {
         SelectorController.SelectAccessory(StateID);
@@ -49,6 +59,16 @@ class BulleurHoverState : ISelectorState
     public void KeyDownPressed()
     {
         SelectorController.SetState(new ReservoirHoverState());
+    }
+
+    public void KeyRightPressed()
+    {
+        SelectorController.SetState(new StartHoverState());
+    }
+
+    public void KeyLeftPressed()
+    {
+        SelectorController.SetState(new RetourHoverState());
     }
 
     public void KeyEnterPressed()
@@ -74,6 +94,16 @@ class ReservoirHoverState : ISelectorState
         SelectorController.SetState(new ReacteurHoverState());
     }
 
+    public void KeyRightPressed()
+    {
+        SelectorController.SetState(new StartHoverState());
+    }
+
+    public void KeyLeftPressed()
+    {
+        SelectorController.SetState(new RetourHoverState());
+    }
+
     public void KeyEnterPressed()
     {
         SelectorController.SelectAccessory(StateID);
@@ -97,6 +127,17 @@ class ReacteurHoverState : ISelectorState
     {
         SelectorController.SetState(new StartHoverState());
     }
+
+    public void KeyRightPressed()
+    {
+        SelectorController.SetState(new StartHoverState());
+    }
+
+    public void KeyLeftPressed()
+    {
+        SelectorController.SetState(new RetourHoverState());
+    }
+
     public void KeyEnterPressed()
     {
         SelectorController.SelectAccessory(StateID);

@@ -8,14 +8,14 @@ public class FishingManager : MonoBehaviour
     static private int next_harmopha_fishing = 1;
     static private int max_harphomas = 5;
     static public int nb_fishing = 0;
-    static private int air_remaining;
+    static public int air_remaining;
     public Harmopha_Manager h1;
     public Harmopha_Manager h2;
     public Harmopha_Manager h3;
     public Harmopha_Manager h4;
     public Harmopha_Manager h5;
 
-    int particles_count;
+    static public int particles_count;
 
     // Start is called before the first frame update
     void Start()
@@ -62,8 +62,12 @@ public class FishingManager : MonoBehaviour
 
         foreach (Harmopha_Manager h in hs)
         {
-            var emission = h.bubbles_object.emission;
-            particles_count += (int)emission.rateOverTime.constant;
+            if (!h.isFishing)
+            {
+                var emission = h.bubbles_object.emission;
+                particles_count += (int)emission.rateOverTime.constant;
+            }
+            
         }
 
         if (air_remaining <= particles_count)
@@ -75,7 +79,9 @@ public class FishingManager : MonoBehaviour
                 h.hasAir = false;
             }
             h1.isBubble = false;
-            Invoke("EndGame",10);
+            air_remaining = 650000;
+            particles_count = 0;
+            Invoke("EndGame",6);
         }
     }
 
