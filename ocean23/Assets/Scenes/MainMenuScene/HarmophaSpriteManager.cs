@@ -26,7 +26,6 @@ public class HarmophaSpriteManager : MonoBehaviour
         if (accessoriesList.Count == 0)
             spriteName = "empty";
 
-        Debug.Log(spriteName);
         var texture = Resources.Load($"HarmophaSprite/{spriteName}") as Texture2D;
         var currentSprite = gameObject.GetComponent<Image>().sprite;
 
