@@ -164,7 +164,7 @@ class RetourHoverState : ISelectorState
 
     public void KeyEnterPressed()
     {
-        SceneManager.LoadScene("Scenes/IntroScene/IntroScene1");
+        SceneManager.LoadScene("Scenes/IntroScene/IntroScene0");
     }
 }
 
