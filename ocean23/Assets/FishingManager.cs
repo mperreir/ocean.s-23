@@ -62,8 +62,12 @@ public class FishingManager : MonoBehaviour
 
         foreach (Harmopha_Manager h in hs)
         {
-            var emission = h.bubbles_object.emission;
-            particles_count += (int)emission.rateOverTime.constant;
+            if (!h.isFishing)
+            {
+                var emission = h.bubbles_object.emission;
+                particles_count += (int)emission.rateOverTime.constant;
+            }
+            
         }
 
         if (air_remaining <= particles_count)
