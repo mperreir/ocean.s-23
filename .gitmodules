@@ -1,0 +1,3 @@
+[submodule "Un monde à explorer"]
+	path = Un monde à explorer
+	url = git@ssh.marcbarbier.fr:Marc/icreate.git
