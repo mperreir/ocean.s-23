@@ -5,30 +5,37 @@ using UnityEngine.SceneManagement;
 
 public class FishingManager : MonoBehaviour
 {
+    // ID of the next harmorpha that will go fishing when action triggered
     static private int next_harmopha_fishing = 1;
+    // Total number of harmophas in the game
     static private int max_harphomas = 5;
+    // Number of harmophas currently in the fishing path
     static public int nb_fishing = 0;
-    static public int air_remaining;
+    // All Harmophas
     public Harmopha_Manager h1;
     public Harmopha_Manager h2;
     public Harmopha_Manager h3;
     public Harmopha_Manager h4;
     public Harmopha_Manager h5;
 
+    // The total capacity of harmophas' air tank
+    static public int air_total_capacity;
+    // Number of particles (bubbles) emitted
     static public int particles_count;
 
     // Start is called before the first frame update
     void Start()
     {
-        air_remaining = 650000;
+        air_total_capacity = 650000;
         particles_count = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Harmopha_Manager[] hs = { h1, h2, h3, h4, h5 };
-
+        Harmopha_Manager[] harmorphas_group = { h1, h2, h3, h4, h5 };
+        
+        // Launch of harmophas to go fishing
         if (InputController.GetKeyDown(InputKey.LaunchHunter) && nb_fishing < max_harphomas)
         {
             switch (next_harmopha_fishing)
@@ -59,8 +66,8 @@ public class FishingManager : MonoBehaviour
                 next_harmopha_fishing++;
         }
 
-
-        foreach (Harmopha_Manager h in hs)
+        // Emission of bubbles
+        foreach (Harmopha_Manager h in harmorphas_group)
         {
             if (!h.isFishing)
             {
@@ -70,16 +77,17 @@ public class FishingManager : MonoBehaviour
             
         }
 
-        if (air_remaining <= particles_count)
+        // Managing the lack of air
+        if (air_total_capacity <= particles_count)
         {
             Debug.Log("NO MORE AIR");
-            foreach (Harmopha_Manager h in hs)
+            foreach (Harmopha_Manager h in harmorphas_group)
             {
                 h.bubbles_object.Stop();
                 h.hasAir = false;
             }
             h1.isBubble = false;
-            air_remaining = 650000;
+            air_total_capacity = 650000;
             particles_count = 0;
             Invoke("EndGame",6);
         }
