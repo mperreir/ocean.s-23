@@ -32,7 +32,9 @@ int sliderFormat(const int value, const int steps) {
   return value / (SLIDER_MAX_VALUE / steps);
 }
 
-int joystickFormat(const int value) {
+bool down = false, up = false, right = false, left = false;
+
+int joystickFormat(const int value, bool x = false) {
   if (value < 400) return -1;
   if (value > 700) return 1;
   return 0;
@@ -53,6 +55,8 @@ void resetLaunchHunterRoutine() {
   for (int i = 0; i < 5; i++) sliderPressed[i] = false;
   btn2Pressed = false;
 }
+
+
 
 bool lauchHunter(){
   u8 btnValue = 0, sliderValue = 0;

@@ -17,7 +17,8 @@ public class VideoPlayerManager : MonoBehaviour
 
     void EndReached(UnityEngine.Video.VideoPlayer vp)
     {
-        SceneManager.LoadScene(nextSceneName);
+
+        //SceneManager.LoadScene(nextSceneName);
     }
 
 

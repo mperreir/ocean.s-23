@@ -188,7 +188,7 @@ class StartHoverState : ISelectorState
 
     public void KeyEnterPressed()
     {
-        SceneManager.LoadScene("Main scene");
+        SceneManager.LoadScene("Scenes/MainMenuScene/Command");
     }
 }
 

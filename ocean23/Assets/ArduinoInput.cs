@@ -147,16 +147,118 @@ public class ArduinoInput
         // Debug.Log("test fine");
     }
 
+    float StartEndButtonLastRead = 0;
+    float RightLastRead = 0;
+    float LeftLastRead = 0;
+    float UpLastRead = 0;
+    float DownLastRead = 0;
+
     bool _GetKey(ArduinoInputKey key)
     {
+
         switch (key)
         {
-            case ArduinoInputKey.StartEndButton: return Input.StartEndButton != 0;
+            case ArduinoInputKey.StartEndButton:
+                if (Input.StartEndButton != 0)
+                {
+                    if (StartEndButtonLastRead == 0)
+                    {
+                        StartEndButtonLastRead += Time.deltaTime;
+                        return true;
+                    }
+                    if (StartEndButtonLastRead >= 1.0)
+                    {
+                        StartEndButtonLastRead = 0 + Time.deltaTime;
+                        return true;
+                    }
+                    StartEndButtonLastRead += Time.deltaTime;
+                }
+                else
+                {
+                    StartEndButtonLastRead = 0;
+                }
+                return false;
             case ArduinoInputKey.BubbleStream: return Input.BubbleStream != 0;
-            case ArduinoInputKey.JoystickXRight: return Input.JoystickX < 0;
-            case ArduinoInputKey.JoystickXLeft: return Input.JoystickX > 0;
-            case ArduinoInputKey.JoystickYUp: return Input.JoystickY > 0;
-            case ArduinoInputKey.JoystickYDown: return Input.JoystickY < 0;
+            case ArduinoInputKey.JoystickXRight:
+                if (Input.JoystickX > 0)
+                {
+                    if (RightLastRead == 0)
+                    {
+                        RightLastRead += Time.deltaTime;
+                        return true;
+                    }
+                    if (RightLastRead >= 1.0)
+                    {
+                        RightLastRead = 0 + Time.deltaTime;
+                        return true;
+                    }
+                    RightLastRead += Time.deltaTime;
+                }
+                else
+                {
+                    RightLastRead = 0;
+                }
+                return false;
+            case ArduinoInputKey.JoystickXLeft:
+                if (Input.JoystickX < 0)
+                {
+                    if (LeftLastRead == 0)
+                    {
+                        LeftLastRead += Time.deltaTime;
+                        return true;
+                    }
+                    if (LeftLastRead >= 1.0)
+                    {
+                        LeftLastRead = 0 + Time.deltaTime;
+                        return true;
+                    }
+                    LeftLastRead += Time.deltaTime;
+                }
+                else
+                {
+                    LeftLastRead = 0;
+                }
+                return false;
+            case ArduinoInputKey.JoystickYUp:
+                if (Input.JoystickY > 0)
+                {
+                    if (UpLastRead == 0)
+                    {
+                        UpLastRead += Time.deltaTime;
+                        return true;
+                    }
+                    if (UpLastRead >= 1.0)
+                    {
+                        UpLastRead = 0 + Time.deltaTime;
+                        return true;
+                    }
+                    UpLastRead += Time.deltaTime;
+                }
+                else
+                {
+                    UpLastRead = 0;
+                }
+                return false;
+            case ArduinoInputKey.JoystickYDown:
+                if (Input.JoystickY < 0)
+                {
+                    if (DownLastRead == 0)
+                    {
+                        DownLastRead += Time.deltaTime;
+                        return true;
+                    }
+                    if (DownLastRead >= 1.0)
+                    {
+                        DownLastRead = 0 + Time.deltaTime;
+                        return true;
+                    }
+                    DownLastRead += Time.deltaTime;
+                }
+                else
+                {
+                    DownLastRead = 0;
+                }
+                return false;
             case ArduinoInputKey.LaunchHunter:
                 {
                     if (Input.LaunchHunter <= 0) return false;
