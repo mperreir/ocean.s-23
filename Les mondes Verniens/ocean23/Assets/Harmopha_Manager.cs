@@ -4,17 +4,27 @@ using UnityEngine;
 using PathCreation;
 using PathCreation.Examples;
 
+/*
+  Class managing : 
+    - individual harmopha
+    - the path it's on
+    - its bubbles
+*/
 public class Harmopha_Manager : MonoBehaviour
 {
     // Objects having a PathFollower script attached
     public PathFollower harmopha, manager;
     // path_circle is the path for Harmophas at the bottom of the ocean
+    public PathCreator path_circle;
     // path_fishing is the path for Harmophas to swim to the surface and go back down
-    public PathCreator path_circle, path_fishing;
+    public PathCreator path_fishing;
+    // Whether or not the Harmopha is currently fishing
     public bool isFishing = false;
+    // Whether or not there's still air available
     public bool hasAir = true;
     // Bubbles particles object
     public ParticleSystem bubbles_object;
+
     public float starting_point = 0.0f;
 
     public int id_harmopha;
@@ -61,11 +71,13 @@ public class Harmopha_Manager : MonoBehaviour
             BubbleGeneration();
     }
 
+    // Method called by the FishingManager
     public void GoFishing()
     {
         var emission = bubbles_object.emission;
         emission.rateOverTime = 0;
 
+        // Changing the path followed by the harmopha
         harmopha.pathCreator = path_fishing;
         isFishing = true;
         harmopha.enabled = true;
