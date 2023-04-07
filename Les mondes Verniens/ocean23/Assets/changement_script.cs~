@@ -1,0 +1,40 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using PathCreation;
+using PathCreation.Examples;
+
+public class changement_script : MonoBehaviour
+{
+    public PathFollower whale, manager;
+    public PathCreator path_circle, path_fishing;
+    public bool isFishing = false;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+      
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+      if(Input.GetKey(KeyCode.Space) && !isFishing) {
+        whale.pathCreator = path_fishing;
+        isFishing = true;
+        whale.enabled = true;
+        manager.enabled = false;
+      }
+
+      Vector3 whale_pos = GameObject.Find("w4").transform.position;
+      Vector3 end_path_pos = whale.pathCreator.path.GetPoint(whale.pathCreator.path.NumPoints - 1);
+
+      if (Vector3.Distance(whale_pos, end_path_pos) < 0.001f && isFishing) {
+        whale.pathCreator = path_circle;
+        isFishing = false;
+        whale.enabled = false;
+        manager.enabled = true;
+        GameObject.Find("w4").transform.position = end_path_pos;
+      }
+    }
+}

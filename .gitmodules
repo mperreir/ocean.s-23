@@ -1,0 +1,6 @@
+[submodule "Au gré du courant"]
+	path = Au gré du courant
+	url = https://github.com/douetp/ocean23
+[submodule "Un monde à explorer"]
+	path = Un monde à explorer
+	url = https://gitlab.marcbarbier.fr/Marc/icreate.git
