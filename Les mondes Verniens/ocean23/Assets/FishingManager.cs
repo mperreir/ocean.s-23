@@ -89,10 +89,12 @@ public class FishingManager : MonoBehaviour
             h1.isBubble = false;
             air_total_capacity = 650000;
             particles_count = 0;
+            // Call function in six seconds
             Invoke("EndGame",6);
         }
     }
 
+    // Load GameOver scene
     public void EndGame(){
         SceneManager.LoadScene("Scenes/GameOverScene/GameOver");
     }

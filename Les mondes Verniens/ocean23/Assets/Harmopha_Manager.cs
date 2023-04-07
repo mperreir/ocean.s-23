@@ -20,8 +20,8 @@ public class Harmopha_Manager : MonoBehaviour
     public int id_harmopha;
 
     private int value_emission = 0;
-
-    public bool isBubble = false;
+    // for the detection of fish module 
+    public bool isBubble = false; 
 
     // Start is called before the first frame update
     void Start()
@@ -96,7 +96,8 @@ public class Harmopha_Manager : MonoBehaviour
         var emission = bubbles_object.emission;
         value_emission = InputController.GetBubbleStreamValue();
         emission.rateOverTime = value_emission * 20;
-
+        
+        // To launch the emission of bubble so to modify the parameter isBubble
         if (value_emission > 0 && !isFishing)
         {
             bubbles_object.Play();

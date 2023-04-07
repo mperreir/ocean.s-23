@@ -16,7 +16,6 @@ public class Flock : MonoBehaviour
     public float followSpeed = 0.1f;
     Vector3 averageHeading;
     Vector3 averagePosition;
-    // float neighbourDistance = 20.0f;
     public int tankSize = globalFlock.tankSize;
     public float angleSpeed = 0.01f;
     public bool isRotate = true;
@@ -35,6 +34,7 @@ public class Flock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // If bubble 
         if(hm.isBubble){
             CircleAround();
         }
@@ -48,6 +48,7 @@ public class Flock : MonoBehaviour
             transform.Translate(speed * Time.deltaTime,0,0);
         }
 
+        // If out of range
         if(Vector3.Distance(transform.position,new Vector3(0,0,0))>500){
             transform.position = new Vector3(Random.Range(-500,-400), Random.Range(tankSize / 2 - 15, tankSize / 2 - 5), Random.Range(280, 360));
             transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f,1);
@@ -65,124 +66,33 @@ public class Flock : MonoBehaviour
             {
                 z = 10;
             }
-
+            // To rotate around a point which is related to the circle of bubble 
             transform.RotateAround(new Vector3(0, transform.position.y, 320), Vector3.up, 100.0f * Time.deltaTime);
         }
         else
         {
+            // To move in the direction of head
             transform.Translate(speed * Time.deltaTime,0,0);
         }
     }
 
-    // counter
+    // To calculate the score everytime fish is eated(collision detected by unity) 
+    // and reinitilise the position of fish eaten
     void OnTriggerEnter(Collider collider) {
         Vector3 pos = this.transform.position;
         pos.x = -500;
         this.transform.position = pos;
         this.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f,1);
         score += 1;
-
+        
+        // if score is realised, load Victory scene
         if(score == 100){
             score = 0;
             SceneManager.LoadScene("Scenes/GameOverScene/Victory");
         }
 
     }
-
-    // escape
-    // void FlockEscape(){
-    //     this.transform.Rotate(0.0f, 0.0f, rotationSpeed * 180.0f);
-    //     // Vector3 pos = go.transform.position;
-    //     // pos.x += -1 * 30 * Time.deltaTime;
-    //     // go.transform.position = pos;
-    // }
-
-    // void OnTriggerStay(Collider collider) {
-    //     transform.RotateAround(new Vector3(0,Vector3.Distance(transform.position,new Vector3(0,10,0)),transform.position.z),Vector3.forward,200.0f*Time.deltaTime);
-    // }
-
-    // void ApplyRule(){
-    //     GameObject[] gos;
-    //     gos = globalFlock.allfish;
-
-    //     Vector3 vcentre = new Vector3(10,10,10);
-    //     Vector3 vavoid = Vector3.zero;
-    //     float gSpeed = 0.1f;
-
-    //     Vector3 goalPos = globalFlock.goalPos;
-    //     int tankSize = globalFlock.tankSize;
-
-    //     float dist;
-    //     int groupSize = 0;
-
-    //     foreach (GameObject go in gos)
-    //     {
-    //         if(go != this.gameObject){
-    //             dist = Vector3.Distance(go.transform.position,this.transform.position);
-    //             if(dist<=neighbourDistance){
-    //                 vcentre += go.transform.position;
-    //                 groupSize++;
-
-    //                 if(dist<1.0f){
-    //                     vavoid = vavoid + (this.transform.position - go.transform.position);
-    //                 }
-
-    //                 Flock anotherFlock = go.GetComponent<Flock>();
-    //                 gSpeed = gSpeed + anotherFlock.speed;
-    //             }
-    //         }
-    //     }
-
-    //     if (groupSize>0){
-    //         vcentre = vcentre/groupSize + (goalPos - this.transform.position);
-    //         speed = gSpeed/groupSize;
-
-    //         // Vector3 direction = goalPos - this.transform.position;
-    //         Vector3 direction = vcentre + vavoid;
-            
-    //         // Vector3 direction = new Vector3(Random.Range(-tankSize,tankSize),0,Random.Range(-tankSize,tankSize));
-    //         direction += vcentre + vavoid;
-    //         if(direction != Vector3.zero){
-    //             transform.rotation = Quaternion.Slerp(transform.rotation,Quaternion.LookRotation(),rotationSpeed*Time.deltaTime);
-    //         }
-    //     }
-    // }
 }
 
 
 
-    // void ApplyFollow(Vector3 goalPos){
-    //     bool isRotate = true;
-    //     if (isRotate)
-    //     {
-    //         transform.rotation = Quaternion.Slerp(transform.rotation,Quaternion.LookRotation(goalPos-transform.position),rotationSpeed*Time.deltaTime);
-    //         transform.position = Vector3.MoveTowards(transform.position, goalPos, followSpeed * Time.deltaTime);    
-    //     }
-    //     if (Vector3.Angle(goalPos, transform.position) < 0.1f)
-    //     {
-    //         isRotate = false;
-    //     }
-    // }
-
-    
-
-
-        // Vector3 vec = -goalPos;
-        // Quaternion rotate = Quaternion.LookRotation(vec);
-        // if (Vector3.Angle(vec, transform.forward) < 0.1f)
-        // {
-        //     isRotate = false;
-        // }
-        // if (isRotate)
-        // {
-        //     transform.localRotation = Quaternion.Slerp(transform.localRotation, rotate, angleSpeed);
-        // }
-
-        // if(turning){
-        // transform.rotation = Quaternion.Slerp(transform.rotation,Quaternion.LookRotation(direction),rotationSpeed*Time.deltaTime); 
-        // }
-        // else{
-        //     if(Random.Range(0,5)<1){
-        //         this.ApplyRule();
-        //     }
-        // }
