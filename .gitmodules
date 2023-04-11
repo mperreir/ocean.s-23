@@ -4,3 +4,6 @@
 [submodule "Un monde à explorer"]
 	path = Un monde à explorer
 	url = https://gitlab.marcbarbier.fr/Marc/icreate.git
+[submodule "Un océan de promesses"]
+	path = Un océan de promesses
+	url = https://github.com/ThibaultBus/ICreate-2023-Ocean-de-promesses
