@@ -7,3 +7,6 @@
 [submodule "Un océan de promesses"]
 	path = Un océan de promesses
 	url = https://github.com/ThibaultBus/ICreate-2023-Ocean-de-promesses
+[submodule "Sous la glace une explosition de vie"]
+	path = Sous la glace une explosition de vie
+	url = https://github.com/Thowisk/ocean.s-23
